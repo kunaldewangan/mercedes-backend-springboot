@@ -4,76 +4,70 @@ package com.mercedes.by.kunal.RESTdevelopment.vehicle.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+
 @Entity
-@Table(name = "vehicles")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Table(name = "vehicles", schema = "public")
+//@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data // Generates getters, setters, toString, equals, and hashCode via Lombok
 public class VehicleModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(nullable = false)
-    private String modelName; // e.g., "S-Class"
+    @Column(name = "v_identifier", length = 10, nullable = false, unique = true)
+    private String vIdentifier;
 
-    private String series;    // e.g., "W223"
+    @Column(name = "model_name", length = 50, nullable = false)
+    private String modelName;
 
+    @Column(name = "model_year", nullable = false)
+    private Integer modelYear;
+
+    @Column(name = "series", length = 30)
+    private String series;
+
+    @Column(name = "mileage")
+    private Integer mileage = 0;
+
+    @Column(name = "vehicle_type", length = 30)
+    private String vehicleType;
+
+    @Column(name = "engine", length = 50)
+    private String engine;
+
+    @Column(name = "horse_power")
     private Integer horsePower;
 
+    @Column(name = "engine_type", length = 20)
+    private String engineType;
 
-//   -- without Lambok --
-//
-//
-//    public VehicleModel() {
-//    }
-//
-//    public VehicleModel(Long id, Integer horsePower, String series, String modelName) {
-//        this.id = id;
-//        this.horsePower = horsePower;
-//        this.series = series;
-//        this.modelName = modelName;
-//    }
-//
-//
-//   -- Getter --
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public Integer getHorsePower() {
-//        return horsePower;
-//    }
-//
-//    public String getSeries() {
-//        return series;
-//    }
-//
-//    public String getModelName() {
-//        return modelName;
-//    }
-//
-//
-//   -- Setter --
-//
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public void setHorsePower(Integer horsePower) {
-//        this.horsePower = horsePower;
-//    }
-//
-//    public void setSeries(String series) {
-//        this.series = series;
-//    }
-//
-//    public void setModelName(String modelName) {
-//        this.modelName = modelName;
-//    }
-//
-//
+    @Column(name = "status", length = 20)
+    private String status = "Active";
 
+    @Column(name = "launch_date")
+    private LocalDate launchDate;
+
+    @Column(name = "life_time")
+    private Integer lifeTime;
+
+    @Column(name = "created_at", updatable = false)
+    private ZonedDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = ZonedDateTime.now();
+        }
+    }
+
+
+
+
+//   -- Write without Lambok -> All arg and no arg constructor, Getter Setter --
 
 
 }

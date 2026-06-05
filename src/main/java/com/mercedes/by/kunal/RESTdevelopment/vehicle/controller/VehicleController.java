@@ -41,6 +41,13 @@ public class VehicleController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Get a specific vehicle by model name
+    @GetMapping("/modelname/{modelName}")
+    public ResponseEntity<VehicleModel> getByModelName(@PathVariable String modelName) {
+        return vehicleService.getVehicleByModelName(modelName)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     // Update a vehicle details -- PUT method
     @PutMapping("/update/{id}")

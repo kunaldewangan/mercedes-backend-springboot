@@ -28,15 +28,28 @@ public class VehicleService {
         return vehicleRepository.findById(id);
     }
 
+    public Optional<VehicleModel> getVehicleByModelName(String modelname) {
+        return vehicleRepository.findByModelName(modelname);
+    }
+
 
     public VehicleModel updateVehicle(Long id, VehicleModel newVehicleDetails)
     {
         return vehicleRepository.findById(id)
                 .map(vehicle ->
                         {
+                            vehicle.setVIdentifier(newVehicleDetails.getVIdentifier());
                             vehicle.setModelName(newVehicleDetails.getModelName());
+                            vehicle.setModelYear(newVehicleDetails.getModelYear());
                             vehicle.setSeries(newVehicleDetails.getSeries());
+                            vehicle.setMileage(newVehicleDetails.getMileage());
+                            vehicle.setVehicleType(newVehicleDetails.getVehicleType());
+                            vehicle.setEngine(newVehicleDetails.getEngine());
                             vehicle.setHorsePower(newVehicleDetails.getHorsePower());
+                            vehicle.setEngineType(newVehicleDetails.getEngineType());
+                            vehicle.setStatus(newVehicleDetails.getStatus());
+                            vehicle.setLaunchDate(newVehicleDetails.getLaunchDate());
+                            vehicle.setLifeTime(newVehicleDetails.getLifeTime());
                             return vehicleRepository.save(vehicle);
                         })
                 .orElseThrow(() -> new RuntimeException("Vehicle not found with ID "+ id));
