@@ -10,9 +10,13 @@ import java.util.*;
 
 @SpringBootApplication
 public class RestDevelopmentApplication {
-//    java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("Asia/Kolkata"));
+
 	public static void main(String[] args) {
-		SpringApplication.run(RestDevelopmentApplication.class, args);
+//        Set Timezone in next line to fix the timezone issue.
+        java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("Asia/Kolkata"));
+
+        SpringApplication.run(RestDevelopmentApplication.class, args);
+
 	}
 
 }
